@@ -3,9 +3,9 @@ import { Dialog, DialogPanel } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 
 const navigation = [
-  { name: "Home", href: "#" },
-  { name: "Leads", href: "#" },
-  { name: "Connect", href: "#" },
+  { name: "Home", href: "/" },
+  { name: "Leads", href: "/leads" },
+  { name: "Connect", href: "/connect" },
   { name: "Workflow", href: "#" },
 ];
 
@@ -13,7 +13,7 @@ export function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <header className="absolute inset-x-0 top-0 z-50">
+    <header className="fixed inset-x-0 top-0 z-50">
       <nav
         aria-label="Global"
         className="flex items-center justify-between p-6 lg:px-8"
