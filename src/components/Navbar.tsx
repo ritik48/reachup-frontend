@@ -3,6 +3,7 @@ import { Dialog, DialogPanel } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import useUser from "@/contexts/UserContext";
 import { Button } from "./ui/button";
+import { Link } from "react-router-dom";
 
 export function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -63,18 +64,18 @@ export function Navbar() {
             </Button>
           ) : (
             <>
-              <a
-                href="#"
+              <Link
+                to="/login"
                 className="text-sm/6 font-semibold text-gray-900 border border-gray-400 px-3 py-1 rounded-md"
               >
                 Log in
-              </a>
-              <a
-                href="#"
+              </Link>
+              <Link
+                to="/signup"
                 className="text-sm/6 font-semibold text-gray-900 border border-gray-400 px-3 py-1 rounded-md"
               >
                 Signup
-              </a>
+              </Link>
             </>
           )}
         </div>
