@@ -1,5 +1,3 @@
-import { Button } from "@/components/ui/button";
-import { FaPlus } from "react-icons/fa6";
 import { ConnectorDialog } from "./ConnectorDialog";
 
 export function Connect() {
@@ -8,7 +6,7 @@ export function Connect() {
       <div className="max-w-7xl mx-auto">
         <div className="flex flex-col gap-2 items-start">
           <h1 className="text-4xl">Your Email Senders</h1>
-         <ConnectorDialog />
+          <ConnectorDialog />
         </div>
       </div>
     </div>
