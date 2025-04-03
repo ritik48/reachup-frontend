@@ -14,7 +14,7 @@ interface ValueProp {
   user: User | null;
   loading: boolean;
   login: (email: string, password: string) => Promise<void>;
-  signup: (email: string, password: string) => Promise<void>;
+  signup: (name: string, email: string, password: string) => Promise<void>;
   logout: () => Promise<void>;
 }
 
@@ -63,17 +63,18 @@ const UserProvider = ({ children }: PropType) => {
     navigate("/");
   };
 
-  const signup = async (email: string, password: string) => {
-    const data = await userSignup(email, password);
+  const signup = async (name: string, email: string, password: string) => {
+    const data = await userSignup(name, email, password);
     console.log(data);
     if (!data.success) {
       toast.error(data.message);
       return;
     }
+    console.log({ data });
 
     setUser(data.user);
     toast.success(data.message);
-    navigate("/");
+    navigate("/login");
   };
 
   const logout = async () => {

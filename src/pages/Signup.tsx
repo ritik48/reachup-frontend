@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Eye, EyeOff } from "lucide-react";
+import useUser from "@/contexts/UserContext";
 
 type FormType = {
   name: string;
@@ -21,15 +22,15 @@ type FormType = {
 
 export const SignUpPage = () => {
   const [showPassword, setShowPassword] = React.useState(false);
+  const { signup } = useUser();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<FormType>();
 
-  const onSubmit = (data: FormType) => {
-    console.log("Signup form submitted:", data);
-    // Add your registration logic here
+  const onSubmit = async (data: FormType) => {
+    await signup(data.name, data.email, data.password);
   };
 
   return (
@@ -91,7 +92,7 @@ export const SignUpPage = () => {
                   {...register("password", {
                     required: "Password is required",
                     minLength: {
-                      value: 8,
+                      value: 3,
                       message: "Password must be at least 8 characters",
                     },
                   })}

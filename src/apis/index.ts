@@ -25,14 +25,14 @@ const userLogin = async (email: string, password: string) => {
   return data;
 };
 
-const userSignup = async (email: string, password: string) => {
+const userSignup = async (name: string, email: string, password: string) => {
   const res = await fetch(`${BACKEND}/auth/signup`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     credentials: "include",
-    body: JSON.stringify({ email, password }),
+    body: JSON.stringify({ name, email, password }),
   });
   const data = await res.json();
 

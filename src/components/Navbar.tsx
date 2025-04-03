@@ -9,7 +9,7 @@ export function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { user, logout } = useUser();
 
-  const isAuthenticated = user !== null;
+  const isAuthenticated = !!user;
 
   const navigation = isAuthenticated
     ? [
