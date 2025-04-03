@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Eye, EyeOff } from "lucide-react";
+import useUser from "@/contexts/UserContext";
 
 type FormType = {
   email: string;
@@ -26,9 +27,12 @@ const LoginPage = () => {
     formState: { errors },
   } = useForm<FormType>();
 
-  const onSubmit = (data: FormType) => {
-    console.log("Login form submitted:", data);
-    // Add your authentication logic here
+  const { login, user } = useUser();
+
+  console.log({user})
+
+  const onSubmit = async (data: FormType) => {
+    await login(data.email, data.password);
   };
 
   return (

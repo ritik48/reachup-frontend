@@ -49,11 +49,10 @@ const UserProvider = ({ children }: PropType) => {
     };
 
     fetchUser();
-  }, [setLoading]);
+  }, []);
 
   const login = async (email: string, password: string) => {
     const data = await userLogin(email, password);
-    console.log(data);
     if (!data.success) {
       toast.error(data.message);
       return;
