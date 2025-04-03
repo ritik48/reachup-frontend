@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 type User = {
   _id: string;
   email: string;
+  name: string;
 };
 
 interface ValueProp {
@@ -98,8 +99,13 @@ const UserProvider = ({ children }: PropType) => {
 
 const useUser = () => {
   const userContext = useContext(UserContext);
+  if (userContext === undefined) {
+    throw new Error("useUser must be used within a UserContext.Provider");
+  }
 
   return userContext;
 };
+
+export default useUser;
 
 export { useUser, UserProvider };
