@@ -3,7 +3,6 @@ import { Dialog, DialogPanel } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import useUser from "@/contexts/UserContext";
 import { Button } from "./ui/button";
-import { userLogout } from "@/apis";
 
 export function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
