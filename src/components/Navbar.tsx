@@ -1,16 +1,24 @@
 import { useState } from "react";
 import { Dialog, DialogPanel } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
-
-const navigation = [
-  { name: "Home", href: "/" },
-  { name: "Leads", href: "/leads" },
-  { name: "Connect", href: "/connect" },
-  { name: "Workflow", href: "#" },
-];
+import useUser from "@/contexts/UserContext";
+import { Button } from "./ui/button";
+import { userLogout } from "@/apis";
 
 export function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { user, logout } = useUser();
+
+  const isAuthenticated = user !== null;
+
+  const navigation = isAuthenticated
+    ? [
+        { name: "Home", href: "/" },
+        { name: "Leads", href: "/leads" },
+        { name: "Connect", href: "/connect" },
+        { name: "Workflow", href: "#" },
+      ]
+    : [{ name: "Home", href: "/" }];
 
   return (
     <header className="fixed inset-x-0 top-0 z-50">
@@ -50,18 +58,26 @@ export function Navbar() {
           ))}
         </div>
         <div className="hidden lg:flex lg:flex-1 lg:justify-end gap-10">
-          <a
-            href="#"
-            className="text-sm/6 font-semibold text-gray-900 border border-gray-400 px-3 py-1 rounded-md"
-          >
-            Log in
-          </a>
-          <a
-            href="#"
-            className="text-sm/6 font-semibold text-gray-900 border border-gray-400 px-3 py-1 rounded-md"
-          >
-            Signup
-          </a>
+          {isAuthenticated ? (
+            <Button className="cursor-pointer" onClick={logout}>
+              Logout
+            </Button>
+          ) : (
+            <>
+              <a
+                href="#"
+                className="text-sm/6 font-semibold text-gray-900 border border-gray-400 px-3 py-1 rounded-md"
+              >
+                Log in
+              </a>
+              <a
+                href="#"
+                className="text-sm/6 font-semibold text-gray-900 border border-gray-400 px-3 py-1 rounded-md"
+              >
+                Signup
+              </a>
+            </>
+          )}
         </div>
       </nav>
       <Dialog
