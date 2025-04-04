@@ -65,4 +65,54 @@ const addEmailSender = async (values: any) => {
 
   return data;
 };
-export { getUser, userLogin, userSignup, userLogout, addEmailSender };
+
+const verifyEmailSender = async (id: string) => {
+  const res = await fetch(`${BACKEND}/user/verify-email`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    credentials: "include",
+    body: JSON.stringify({ id }),
+  });
+
+  const data = await res.json();
+
+  return data;
+};
+
+const deleteEmailSender = async (id: string) => {
+  const res = await fetch(`${BACKEND}/user/email-sender`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    credentials: "include",
+    body: JSON.stringify({ id }),
+  });
+
+  const data = await res.json();
+
+  return data;
+};
+
+const fetchConnectedEmails = async () => {
+  const res = await fetch(`${BACKEND}/user/email-sender`, {
+    method: "GET",
+    credentials: "include",
+  });
+
+  const data = await res.json();
+
+  return data;
+};
+export {
+  getUser,
+  userLogin,
+  userSignup,
+  userLogout,
+  addEmailSender,
+  fetchConnectedEmails,
+  verifyEmailSender,
+  deleteEmailSender,
+};
