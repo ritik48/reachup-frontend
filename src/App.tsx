@@ -13,13 +13,13 @@ export default function App() {
     <BrowserRouter>
       <UserProvider>
         <Routes>
-          <Route path="/" element={<Layout />}>
+          <Route element={<Layout />}>
             <Route index element={<Home />} />
-            <Route path="/signup" element={<SignUpPage />} />
-            <Route path="/login" element={<LoginPage />} />
+            <Route path="signup" element={<SignUpPage />} />
+            <Route path="login" element={<LoginPage />} />
             <Route element={<ProtectedRoute />}>
-              <Route path="/leads" element={<Leads />} />
-              <Route path="/connect" element={<Connect />} />
+              <Route path="leads" element={<Leads />} />
+              <Route path="connect" element={<Connect />} />
             </Route>
           </Route>
         </Routes>
