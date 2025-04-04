@@ -1,12 +1,13 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Home } from "./pages/home";
 import Layout from "./components/Layout";
-import { Leads } from "./pages/Leads";
+import { Lead } from "./pages/Leads/Lead";
 import { Connect } from "./pages/Connect/Connect";
 import { ProtectedRoute } from "./components/ProtectedRoutes";
 import { UserProvider } from "./contexts/UserContext";
 import SignUpPage from "./pages/Signup";
 import LoginPage from "./pages/Login";
+import { LeadsSetup } from "./pages/Leads/LeadsSetup";
 
 export default function App() {
   return (
@@ -18,7 +19,8 @@ export default function App() {
             <Route path="signup" element={<SignUpPage />} />
             <Route path="login" element={<LoginPage />} />
             <Route element={<ProtectedRoute />}>
-              <Route path="leads" element={<Leads />} />
+              <Route path="leads" element={<Lead />} />
+              <Route path="leads/:id/new" element={<LeadsSetup />} />
               <Route path="connect" element={<Connect />} />
             </Route>
           </Route>
