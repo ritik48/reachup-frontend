@@ -8,13 +8,19 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { FaPlus } from "react-icons/fa6";
-import { EmailConfigForm } from "./EmailConfigFor";
+import { EmailConfigForm } from "./EmailConfigForm";
+import { useState } from "react";
 
-export function ConnectorDialog() {
+type ConnectorDialogProps = {
+  handleAddSender: (data: any) => void;
+};
+
+export function ConnectorDialog({ handleAddSender }: ConnectorDialogProps) {
+  const [open, setOpen] = useState(false);
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger>
-        <Button className="cursor-pointer" onClick={() => console.log("ergre")}>
+        <Button className="cursor-pointer">
           Connect your email <FaPlus size={10} />
         </Button>
       </DialogTrigger>
@@ -25,7 +31,10 @@ export function ConnectorDialog() {
             This action cannot be undone. This will permanently delete your
             account and remove your data from our servers.
           </DialogDescription>
-          <EmailConfigForm />
+          <EmailConfigForm
+            setOpen={setOpen}
+            handleAddSender={handleAddSender}
+          />
         </DialogHeader>
       </DialogContent>
     </Dialog>
