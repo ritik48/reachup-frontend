@@ -49,4 +49,20 @@ const userLogout = async () => {
   return data;
 };
 
-export { getUser, userLogin, userSignup, userLogout };
+const addEmailSender = async (values: any) => {
+  const { host, port, email, password, provider, name } = values;
+
+  const res = await fetch(`${BACKEND}/user/email-sender`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    credentials: "include",
+    body: JSON.stringify({ host, port, email, password, name, provider }),
+  });
+
+  const data = await res.json();
+
+  return data;
+};
+export { getUser, userLogin, userSignup, userLogout, addEmailSender };
