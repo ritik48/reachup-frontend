@@ -106,6 +106,71 @@ const fetchConnectedEmails = async () => {
 
   return data;
 };
+
+const fetchLeads = async () => {
+  const res = await fetch(`${BACKEND}/leads`, {
+    method: "GET",
+    credentials: "include",
+  });
+
+  const data = await res.json();
+
+  return data;
+};
+
+const fetchLeadsById = async (id: string) => {
+  const res = await fetch(`${BACKEND}/leads/${id}`, {
+    method: "GET",
+    credentials: "include",
+  });
+
+  const data = await res.json();
+
+  return data;
+};
+
+const uploadfile = async (formData: FormData) => {
+  const response = await fetch(`${BACKEND}/leads/upload-lead`, {
+    method: "POST",
+    body: formData,
+    credentials: "include",
+  });
+
+  const data = await response.json();
+
+  return data;
+};
+
+const finalSaveLead = async (id: string, header: string[], title: string) => {
+  const response = await fetch(`${BACKEND}/leads/lead-items`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ id, header, title }),
+    credentials: "include",
+  });
+
+  const data = await response.json();
+
+  return data;
+};
+
+const createLead = async (title: string) => {
+  const response = await fetch(`${BACKEND}/leads/create`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ title }),
+    credentials: "include",
+  });
+
+  const data = await response.json();
+
+  return data;
+};
+
 export {
   getUser,
   userLogin,
@@ -115,4 +180,9 @@ export {
   fetchConnectedEmails,
   verifyEmailSender,
   deleteEmailSender,
+  fetchLeads,
+  fetchLeadsById,
+  uploadfile,
+  finalSaveLead,
+  createLead,
 };
