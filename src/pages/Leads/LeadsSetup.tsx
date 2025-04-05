@@ -50,10 +50,7 @@ export const LeadsSetup = () => {
   const standardVariables = [
     { value: "name", label: "Name" },
     { value: "email", label: "Email" },
-    { value: "phone", label: "Phone" },
-    { value: "state", label: "State" },
-    { value: "country", label: "Country" },
-    { value: "skip", label: "Skip Variable" },
+    { value: "company", label: "Company" },
   ];
 
   const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
