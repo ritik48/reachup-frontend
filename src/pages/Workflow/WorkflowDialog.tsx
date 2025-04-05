@@ -8,7 +8,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { FaPlus } from "react-icons/fa6";
-import { WorkflowConfigForm } from "./WorkflowconfigForm";
+import { WorkflowConfigForm } from "./WorkflowConfigForm";
 import { useState } from "react";
 
 export function WorkflowDialog() {
