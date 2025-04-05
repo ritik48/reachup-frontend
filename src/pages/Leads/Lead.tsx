@@ -5,6 +5,7 @@ import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
 import ClipLoader from "react-spinners/ClipLoader";
 import LeadTitleDialog from "./LeadDialog";
+import { Mail } from "lucide-react";
 
 export function Lead() {
   const [loading, setLoading] = useState(false);
@@ -34,7 +35,7 @@ export function Lead() {
     <div className="h-screen pt-[100px]">
       <div className="max-w-7xl mx-auto h-full sm:px-0 px-4">
         <div className="gap-2 items-start flex flex-col h-full w-full">
-          <h1 className="text-4xl">Your Email Senders</h1>
+          <h1 className="text-4xl">Leads</h1>
 
           {!loading && error && (
             <div className="text-sm font-red-500 mt-16">{error}</div>
@@ -45,13 +46,17 @@ export function Lead() {
             <div className="mt-4 space-y-6 w-full">
               <div className="flex gap-6">
                 {leads.map((lead) => (
-                  <Link
-                    to={`${lead._id}/new`}
-                    className="border text-lg px-1 py-2 w-full"
-                    key={lead._id}
-                  >
-                    {lead.title}
-                  </Link>
+                  <div className="border text-lg px-4 py-2 w-full flex items-center justify-between rounded-md">
+                    <Link to={`${lead._id}`} className="" key={lead._id}>
+                      {lead.title}
+                    </Link>
+                    <span className="flex items-center  gap-2">
+                      <Mail size={15} />
+                      <span className="text-sm font-semibold">
+                        {lead.total}
+                      </span>
+                    </span>
+                  </div>
                 ))}
               </div>
               <LeadTitleDialog />
