@@ -8,6 +8,7 @@ import { UserProvider } from "./contexts/UserContext";
 import SignUpPage from "./pages/Signup";
 import LoginPage from "./pages/Login";
 import { LeadsSetup } from "./pages/Leads/LeadsSetup";
+import { LeadsDetail } from "./pages/Leads/LeadsDetail";
 
 export default function App() {
   return (
@@ -21,6 +22,7 @@ export default function App() {
             <Route element={<ProtectedRoute />}>
               <Route path="leads" element={<Lead />} />
               <Route path="leads/:id/new" element={<LeadsSetup />} />
+              <Route path="leads/:id" element={<LeadsDetail />} />
               <Route path="connect" element={<Connect />} />
             </Route>
           </Route>
