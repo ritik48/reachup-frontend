@@ -7,7 +7,6 @@ const getUser = async () => {
     credentials: "include",
   });
   const data = await res.json();
-
   return data;
 };
 
