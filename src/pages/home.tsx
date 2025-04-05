@@ -29,6 +29,7 @@ export function Home() {
               delays. Automate follow-ups, increase engagement, and grow your
               connections—hassle-free!
             </p>
+
             <div className="mt-10 flex items-center justify-center gap-x-6">
               <a
                 href="#"
