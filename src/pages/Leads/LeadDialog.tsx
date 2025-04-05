@@ -43,7 +43,7 @@ const LeadTitleDialog = () => {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="outline">Create New Lead</Button>
+        <Button className="cursor-pointer">Create New Lead</Button>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>

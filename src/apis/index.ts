@@ -182,6 +182,32 @@ const fetchLeadItems = async (id: string) => {
   return data;
 };
 
+const deleteLead = async (id: string) => {
+  const response = await fetch(`${BACKEND}/leads/${id}`, {
+    method: "DELETE",
+    credentials: "include",
+  });
+
+  const data = await response.json();
+
+  return data;
+};
+
+const editLead = async (id: string, title: string) => {
+  const response = await fetch(`${BACKEND}/leads/${id}`, {
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ title }),
+    method: "PATCH",
+    credentials: "include",
+  });
+
+  const data = await response.json();
+
+  return data;
+};
+
 // ============================ WORKFLOW ====================================
 
 const createWorkflow = async (name: string, emailProvider: string) => {
@@ -246,6 +272,32 @@ const fetchWorkflowStatus = async (id: string) => {
   return data;
 };
 
+const deleteWorkflow = async (id: string) => {
+  const response = await fetch(`${BACKEND}/workflow/${id}`, {
+    method: "DELETE",
+    credentials: "include",
+  });
+
+  const data = await response.json();
+
+  return data;
+};
+
+const editWorkflow = async (id: string, name: string) => {
+  const response = await fetch(`${BACKEND}/workflow/${id}`, {
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ name }),
+    method: "PATCH",
+    credentials: "include",
+  });
+
+  const data = await response.json();
+
+  return data;
+};
+
 export {
   getUser,
   userLogin,
@@ -266,4 +318,8 @@ export {
   executeWorkflow,
   fetchAllWorkflow,
   fetchWorkflowStatus,
+  deleteWorkflow,
+  editWorkflow,
+  editLead,
+  deleteLead,
 };

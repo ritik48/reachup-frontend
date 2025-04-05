@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import {
   Table,
   TableBody,
@@ -17,27 +16,7 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-} from "@/components/ui/alert-dialog";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Pencil, Trash2 } from "lucide-react";
+
 import ClipLoader from "react-spinners/ClipLoader";
 import { fetchLeadItems } from "@/apis";
 import { useNavigate, useParams } from "react-router-dom";
@@ -54,10 +33,6 @@ export const LeadsDetail = () => {
   const [leads, setLeads] = useState<LeadType[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(5);
-  const [editingLead, setEditingLead] = useState<LeadType | null>(null);
-  const [deletingLead, setDeletingLead] = useState<LeadType | null>(null);
-  const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
-  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [title, setTitle] = useState("");
@@ -70,41 +45,6 @@ export const LeadsDetail = () => {
   const indexOfFirstLead = indexOfLastLead - itemsPerPage;
   const currentLeads = leads.slice(indexOfFirstLead, indexOfLastLead);
   const totalPages = Math.ceil(leads.length / itemsPerPage);
-
-  // Handle edit lead
-  const handleEditClick = (lead: LeadType) => {
-    setEditingLead({ ...lead });
-    setIsEditDialogOpen(true);
-  };
-
-  // Save edited lead
-  const handleSaveEdit = () => {
-    console.log({ editingLead, leads });
-    if (editingLead) {
-      setLeads(
-        leads.map((lead) => (lead._id === editingLead._id ? editingLead : lead))
-      );
-      setIsEditDialogOpen(false);
-    }
-  };
-
-  // Handle delete confirmation
-  const handleDeleteClick = (lead: LeadType) => {
-    setDeletingLead(lead);
-    setIsDeleteDialogOpen(true);
-  };
-
-  // Confirm and delete lead
-  const handleConfirmDelete = () => {
-    if (deletingLead) {
-      setLeads(leads.filter((lead) => lead._id !== deletingLead._id));
-      setIsDeleteDialogOpen(false);
-
-      if (currentLeads.length === 1 && currentPage > 1) {
-        setCurrentPage(currentPage - 1);
-      }
-    }
-  };
 
   useEffect(() => {
     const fetchLead = async () => {
@@ -119,8 +59,6 @@ export const LeadsDetail = () => {
         if (!data.data.processed) {
           navigate("new");
         }
-
-        console.log("hhhhhhhhhhhhhhhhhhhhhhh");
 
         setTitle(data.data.title);
 
@@ -172,9 +110,6 @@ export const LeadsDetail = () => {
                     Total: {leads.length} leads
                   </p>
                 </div>
-                <Button className="bg-blue-600 hover:bg-blue-700">
-                  Add New Lead
-                </Button>
               </div>
             </CardHeader>
             <CardContent className="p-0">
@@ -185,8 +120,6 @@ export const LeadsDetail = () => {
                       {headers.map((h) => (
                         <TableHead key={h}>{h}</TableHead>
                       ))}
-
-                      <TableHead className="text-right">Actions</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
@@ -195,27 +128,6 @@ export const LeadsDetail = () => {
                         {Object.keys(lead).map((key) => (
                           <TableCell key={key}>{lead[key]}</TableCell>
                         ))}
-
-                        <TableCell className="text-right">
-                          <div className="flex justify-end gap-2">
-                            <Button
-                              variant="ghost"
-                              size="sm"
-                              onClick={() => handleEditClick(lead)}
-                              className="h-8 w-8 p-0"
-                            >
-                              <Pencil className="h-4 w-4 text-slate-500" />
-                            </Button>
-                            <Button
-                              variant="ghost"
-                              size="sm"
-                              onClick={() => handleDeleteClick(lead)}
-                              className="h-8 w-8 p-0"
-                            >
-                              <Trash2 className="h-4 w-4 text-red-500" />
-                            </Button>
-                          </div>
-                        </TableCell>
                       </TableRow>
                     ))}
                   </TableBody>
@@ -268,79 +180,6 @@ export const LeadsDetail = () => {
                 </Pagination>
               </div>
             </CardContent>
-
-            {/* Edit Dialog */}
-            {editingLead && (
-              <Dialog
-                open={isEditDialogOpen}
-                onOpenChange={setIsEditDialogOpen}
-              >
-                <DialogContent className="sm:max-w-md">
-                  <DialogHeader>
-                    <DialogTitle>Edit Lead</DialogTitle>
-                    <DialogDescription>
-                      Make changes to the lead information below.
-                    </DialogDescription>
-                  </DialogHeader>
-                  <div className="grid gap-4 py-4">
-                    {headers.map((h: string) => (
-                      <div className="grid grid-cols-4 items-center gap-4">
-                        <Label htmlFor={h} className="text-right">
-                          {h}
-                        </Label>
-                        <Input
-                          id="name"
-                          value={(editingLead as any)[h.toLowerCase()]}
-                          onChange={(e) =>
-                            setEditingLead({
-                              ...editingLead,
-                              [h.toLowerCase()]: e.target.value,
-                            })
-                          }
-                          className="col-span-3"
-                        />
-                      </div>
-                    ))}
-                  </div>
-                  <DialogFooter>
-                    <Button
-                      variant="outline"
-                      onClick={() => setIsEditDialogOpen(false)}
-                    >
-                      Cancel
-                    </Button>
-                    <Button onClick={handleSaveEdit}>Save Changes</Button>
-                  </DialogFooter>
-                </DialogContent>
-              </Dialog>
-            )}
-
-            {/* Delete Confirmation Dialog */}
-            {deletingLead && (
-              <AlertDialog
-                open={isDeleteDialogOpen}
-                onOpenChange={setIsDeleteDialogOpen}
-              >
-                <AlertDialogContent>
-                  <AlertDialogHeader>
-                    <AlertDialogTitle>Are you sure?</AlertDialogTitle>
-                    <AlertDialogDescription>
-                      This will permanently delete {deletingLead.name}'s lead
-                      information. This action cannot be undone.
-                    </AlertDialogDescription>
-                  </AlertDialogHeader>
-                  <AlertDialogFooter>
-                    <AlertDialogCancel>Cancel</AlertDialogCancel>
-                    <AlertDialogAction
-                      onClick={handleConfirmDelete}
-                      className="bg-red-600 hover:bg-red-700"
-                    >
-                      Delete
-                    </AlertDialogAction>
-                  </AlertDialogFooter>
-                </AlertDialogContent>
-              </AlertDialog>
-            )}
           </Card>
         )}
       </div>

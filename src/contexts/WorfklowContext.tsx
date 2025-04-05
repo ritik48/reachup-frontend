@@ -32,29 +32,17 @@ export type NodeData = {
   };
 };
 
-export type WorkflowDetails = {
-  title: string;
-  active: boolean;
-  emailProvider: string;
-};
-
 type WorkflowContextType = {
   nodes: Node<NodeData>[];
   edges: Edge[];
-  workflowDetails: WorkflowDetails;
   onNodesChange: (changes: NodeChange[]) => void;
   onEdgesChange: (changes: EdgeChange[]) => void;
   onConnect: (connection: Connection) => void;
   updateNodeData: (nodeId: string, data: Partial<NodeData>) => void;
-  updateWorkflowDetails: (details: Partial<WorkflowDetails>) => void;
   addNode: (type: NodeData["type"], position: { x: number; y: number }) => void;
   removeNode: (nodeId: string) => void;
-};
-
-const initialWorkflowDetails: WorkflowDetails = {
-  title: "New Workflow",
-  active: false,
-  emailProvider: "",
+  loading: boolean;
+  workflowTitle: string;
 };
 
 const WorkflowContext = createContext<WorkflowContextType | null>(null);
@@ -68,9 +56,7 @@ export function WorkflowProvider({
 }) {
   const [nodes, setNodes] = useState<Node<NodeData>[]>([]);
   const [edges, setEdges] = useState<Edge[]>([]);
-  const [workflowDetails, setWorkflowDetails] = useState<WorkflowDetails>(
-    initialWorkflowDetails
-  );
+  const [workflowTitle, setWorkflowTitle] = useState<string>("");
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -86,11 +72,7 @@ export function WorkflowProvider({
           navigate("/workflow");
         }
 
-        setWorkflowDetails({
-          title: data.data.title as string,
-          emailProvider: data.data.emailProvider as string,
-          active: data.data.active,
-        });
+        setWorkflowTitle(data.data.name);
         const nodes = JSON.parse(data.data.nodes || "[]");
         const edges = JSON.parse(data.data.edges || "[]");
 
@@ -170,13 +152,6 @@ export function WorkflowProvider({
     []
   );
 
-  const updateWorkflowDetails = useCallback(
-    (details: Partial<WorkflowDetails>) => {
-      setWorkflowDetails((prev) => ({ ...prev, ...details }));
-    },
-    []
-  );
-
   const addNode = useCallback(
     (type: NodeData["type"], position: { x: number; y: number }) => {
       const newNode: Node<NodeData> = {
@@ -217,14 +192,14 @@ export function WorkflowProvider({
       value={{
         nodes,
         edges,
-        workflowDetails,
+        workflowTitle,
         onNodesChange,
         onEdgesChange,
         onConnect,
         updateNodeData,
-        updateWorkflowDetails,
         addNode,
         removeNode,
+        loading,
       }}
     >
       {children}

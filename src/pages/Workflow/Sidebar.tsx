@@ -2,8 +2,8 @@
 
 import type React from "react";
 
-import { Mail, Clock, Users } from "lucide-react";
-import { useWorkflow } from "@/contexts/WorfklowContext";
+import { Mail, Clock, Users, Workflow as WorkflowIcon } from "lucide-react";
+import { NodeData, useWorkflow } from "@/contexts/WorfklowContext";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent } from "@/components/ui/card";
@@ -13,9 +13,23 @@ import { executeWorkflow } from "@/apis";
 import toast from "react-hot-toast";
 import ClipLoader from "react-spinners/ClipLoader";
 import { ExecutionHistoryDialog } from "./ExecutionStatus";
+import { Edge, Node } from "reactflow";
+
+const checkWorkflowValid = (nodes: Node<NodeData>[], edges: Edge[]) => {
+  const allConnectedNodes = edges.reduce((prev: string[], cur) => {
+    prev.push(cur.source);
+    prev.push(cur.target);
+    return prev;
+  }, [] as string[]);
+
+  const nodeWithoutConnection = nodes.some(
+    (node) => !allConnectedNodes.includes(node.id)
+  );
+  return !nodeWithoutConnection;
+};
 
 export function WorkflowSidebar({ id }: { id: string }) {
-  const { nodes, edges } = useWorkflow();
+  const { nodes, edges, workflowTitle } = useWorkflow();
   const [loading, setLoading] = useState(false);
 
   const handleDragStart = (
@@ -29,6 +43,13 @@ export function WorkflowSidebar({ id }: { id: string }) {
   const scheduleWorkflow = async () => {
     try {
       setLoading(true);
+
+      const status = checkWorkflowValid(nodes, edges);
+      if (!status) {
+        toast.error("Invalid workflow.");
+        return;
+      }
+
       const data = await executeWorkflow(
         id,
         JSON.stringify(nodes),
@@ -46,9 +67,10 @@ export function WorkflowSidebar({ id }: { id: string }) {
     <div className="h-full w-full border-r bg-background overflow-y-auto border-t">
       <div className="p-4">
         <div className="space-y-2">
-          <p className="text-sm text-muted-foreground">
-            Drag and drop nodes to create your workflow
-          </p>
+          <div className="flex items-center gap-3">
+            <WorkflowIcon color="green" />
+            <h2 className="text-xl">{workflowTitle}</h2>
+          </div>
         </div>
       </div>
 

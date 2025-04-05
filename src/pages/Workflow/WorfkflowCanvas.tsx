@@ -83,16 +83,6 @@ function Flow() {
       >
         <Background gap={12} size={1} />
         <Controls />
-        <Panel position="top-right">
-          <div className="rounded-md bg-background p-2 shadow-md">
-            <p className="text-sm font-medium">Workflow Rules:</p>
-            <ul className="text-xs text-muted-foreground">
-              <li>• Multiple leads can connect to a delay node</li>
-              <li>• Only one email template per delay node</li>
-              <li>• Lead nodes can connect directly to email nodes</li>
-            </ul>
-          </div>
-        </Panel>
       </ReactFlow>
     </div>
   );
