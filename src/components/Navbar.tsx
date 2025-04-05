@@ -20,6 +20,10 @@ export function Navbar() {
       ]
     : [{ name: "Home", href: "/" }];
 
+  const handleLinkClick = () => {
+    setMobileMenuOpen(false);
+  };
+
   return (
     <header className="fixed inset-x-0 top-0 z-50">
       <nav
@@ -27,14 +31,11 @@ export function Navbar() {
         className="flex items-center justify-between p-6 lg:px-8"
       >
         <div className="flex lg:flex-1">
-          <a href="#" className="-m-1.5 p-1.5">
-            <span className="sr-only">Your Company</span>
-            <img
-              alt=""
-              src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=600"
-              className="h-8 w-auto"
-            />
-          </a>
+          <Link to={"/"} className="-m-1.5 p-1.5">
+            <h1 className="sm:text-lg text-sm border px-2 py-1 rounded-md bg-black text-gray-200 font-semibold">
+              Reach up 🚀
+            </h1>
+          </Link>
         </div>
         <div className="flex lg:hidden">
           <button
@@ -88,17 +89,17 @@ export function Navbar() {
         onClose={setMobileMenuOpen}
         className="lg:hidden"
       >
-        <div className="fixed inset-0 z-50" />
+        <div
+          className="fixed inset-0 z-50 bg-black/50"
+          onClick={() => setMobileMenuOpen(false)}
+        />
         <DialogPanel className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
           <div className="flex items-center justify-between">
-            <a href="#" className="-m-1.5 p-1.5">
-              <span className="sr-only">Your Company</span>
-              <img
-                alt=""
-                src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=600"
-                className="h-8 w-auto"
-              />
-            </a>
+            <Link to="/" className="-m-1.5 p-1.5" onClick={handleLinkClick}>
+              <h1 className="text-xl border px-2 py-2 rounded-md bg-black text-gray-200 font-semibold">
+                Reach up 🚀
+              </h1>
+            </Link>
             <button
               type="button"
               onClick={() => setMobileMenuOpen(false)}
@@ -112,22 +113,45 @@ export function Navbar() {
             <div className="-my-6 divide-y divide-gray-500/10">
               <div className="space-y-2 py-6">
                 {navigation.map((item) => (
-                  <a
+                  <Link
                     key={item.name}
-                    href={item.href}
+                    to={item.href}
+                    onClick={handleLinkClick}
                     className="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50"
                   >
                     {item.name}
-                  </a>
+                  </Link>
                 ))}
               </div>
               <div className="py-6">
-                <a
-                  href="#"
-                  className="-mx-3 block rounded-lg px-3 py-2.5 text-base/7 font-semibold text-gray-900 hover:bg-gray-50"
-                >
-                  Log in
-                </a>
+                {isAuthenticated ? (
+                  <Button
+                    onClick={() => {
+                      logout();
+                      handleLinkClick();
+                    }}
+                    className="w-full"
+                  >
+                    Logout
+                  </Button>
+                ) : (
+                  <div className="space-y-4">
+                    <Link
+                      to="/login"
+                      onClick={handleLinkClick}
+                      className="block w-full rounded-lg px-3 py-2.5 text-base/7 font-semibold text-gray-900 hover:bg-gray-50 text-center border"
+                    >
+                      Log in
+                    </Link>
+                    <Link
+                      to="/signup"
+                      onClick={handleLinkClick}
+                      className="block w-full rounded-lg px-3 py-2.5 text-base/7 font-semibold text-gray-900 hover:bg-gray-50 text-center border"
+                    >
+                      Sign up
+                    </Link>
+                  </div>
+                )}
               </div>
             </div>
           </div>

@@ -17,7 +17,7 @@ export function WorkflowExecution() {
 
   return (
     <WorkflowProvider workflowId={id!}>
-      <div className="flex h-screen pt-[70px] w-screen flex-col overflow-hidden">
+      <div className="flex h-screen pt-[80px] w-screen flex-col overflow-hidden">
         <Navbar />
         <WorkflowWrapper id={id!} />
       </div>
