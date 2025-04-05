@@ -100,7 +100,7 @@ export const LeadsSetup = () => {
   };
 
   return (
-    <div className="container mx-auto pt-[100px] sm:px-0 px-4">
+    <div className="container mx-auto pt-[100px] px-4 sm:px-10">
       <h1 className="text-2xl font-bold mb-6">Upload Leads</h1>
       {loading && <ClipLoader size={15} color="grey" />}
 
