@@ -182,6 +182,70 @@ const fetchLeadItems = async (id: string) => {
   return data;
 };
 
+// ============================ WORKFLOW ====================================
+
+const createWorkflow = async (name: string, emailProvider: string) => {
+  const response = await fetch(`${BACKEND}/workflow`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ name, emailProvider }),
+    credentials: "include",
+  });
+
+  const data = await response.json();
+
+  return data;
+};
+
+const fetchAllWorkflow = async () => {
+  const response = await fetch(`${BACKEND}/workflow`, {
+    method: "GET",
+    credentials: "include",
+  });
+
+  const data = await response.json();
+
+  return data;
+};
+
+const fetchWorkflow = async (id: string) => {
+  const response = await fetch(`${BACKEND}/workflow/${id}`, {
+    method: "GET",
+    credentials: "include",
+  });
+
+  const data = await response.json();
+
+  return data;
+};
+const executeWorkflow = async (id: string, nodes: string, edges: string) => {
+  const response = await fetch(`${BACKEND}/workflow/${id}/execute`, {
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ nodes, edges }),
+    method: "POST",
+    credentials: "include",
+  });
+
+  const data = await response.json();
+
+  return data;
+};
+
+const fetchWorkflowStatus = async (id: string) => {
+  const response = await fetch(`${BACKEND}/workflow/${id}/status`, {
+    method: "GET",
+    credentials: "include",
+  });
+
+  const data = await response.json();
+
+  return data;
+};
+
 export {
   getUser,
   userLogin,
@@ -197,4 +261,9 @@ export {
   finalSaveLead,
   createLead,
   fetchLeadItems,
+  createWorkflow,
+  fetchWorkflow,
+  executeWorkflow,
+  fetchAllWorkflow,
+  fetchWorkflowStatus,
 };

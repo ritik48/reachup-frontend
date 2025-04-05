@@ -9,6 +9,8 @@ import SignUpPage from "./pages/Signup";
 import LoginPage from "./pages/Login";
 import { LeadsSetup } from "./pages/Leads/LeadsSetup";
 import { LeadsDetail } from "./pages/Leads/LeadsDetail";
+import { WorkflowExecution } from "./pages/Workflow/NewWorkflow";
+import { Workflow } from "./pages/Workflow/Workflow";
 
 export default function App() {
   return (
@@ -24,6 +26,9 @@ export default function App() {
               <Route path="leads/:id/new" element={<LeadsSetup />} />
               <Route path="leads/:id" element={<LeadsDetail />} />
               <Route path="connect" element={<Connect />} />
+
+              <Route path="workflow" element={<Workflow />} />
+              <Route path="workflow/:id" element={<WorkflowExecution />} />
             </Route>
           </Route>
         </Routes>

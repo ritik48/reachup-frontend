@@ -16,7 +16,7 @@ export function Navbar() {
         { name: "Home", href: "/" },
         { name: "Leads", href: "/leads" },
         { name: "Connect", href: "/connect" },
-        { name: "Workflow", href: "#" },
+        { name: "Workflow", href: "/workflow" },
       ]
     : [{ name: "Home", href: "/" }];
 
@@ -57,11 +57,14 @@ export function Navbar() {
             </Link>
           ))}
         </div>
-        <div className="hidden lg:flex lg:flex-1 lg:justify-end gap-10">
+        <div className="hidden lg:flex lg:flex-1 lg:justify-end items-center gap-10">
           {isAuthenticated ? (
-            <Button className="cursor-pointer" onClick={logout}>
-              Logout
-            </Button>
+            <>
+              <div>Welcome, {user.name} 👋</div>
+              <Button className="cursor-pointer" onClick={logout}>
+                Logout
+              </Button>
+            </>
           ) : (
             <>
               <Link
