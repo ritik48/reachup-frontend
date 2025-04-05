@@ -57,13 +57,12 @@ export const LeadsSetup = () => {
   ];
 
   const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    await new Promise((r) => setTimeout(r, 5000));
     const file = e.target.files?.[0];
     if (!file) return;
 
     const formData = new FormData();
     formData.append("file", file);
-    formData.append("id", id!); // Replace with the actual ID
+    formData.append("id", id!);
 
     const data = await uploadfile(formData);
 
