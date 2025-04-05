@@ -171,6 +171,17 @@ const createLead = async (title: string) => {
   return data;
 };
 
+const fetchLeadItems = async (id: string) => {
+  const response = await fetch(`${BACKEND}/leads/items/${id}`, {
+    method: "GET",
+    credentials: "include",
+  });
+
+  const data = await response.json();
+
+  return data;
+};
+
 export {
   getUser,
   userLogin,
@@ -185,4 +196,5 @@ export {
   uploadfile,
   finalSaveLead,
   createLead,
+  fetchLeadItems,
 };
