@@ -107,13 +107,15 @@ export function Lead() {
     <div className="h-screen pt-[100px]">
       <div className="max-w-7xl mx-auto h-full sm:px-0 px-4">
         <div className="gap-2 items-start flex flex-col h-full w-full">
-          <h1 className="text-4xl">Leads</h1>
+          <h1 className="text-3xl font-semibold">Leads</h1>
 
           {!loading && error && (
             <div className="text-sm font-red-500 mt-16">{error}</div>
           )}
 
-          {loading && <ClipLoader size={15} color="grey" />}
+          {loading && (
+            <ClipLoader size={40} color="grey" className="mx-auto mt-20" />
+          )}
 
           {!loading && !error && leads.length > 0 && (
             <div className="mt-4 space-y-6 w-full">
@@ -129,7 +131,9 @@ export function Lead() {
                     <div className="flex items-center gap-3">
                       <div className="flex items-center gap-1 text-sm">
                         <Mail size={18} />
-                        <span className="font-semibold text-lg">{lead.total}</span>
+                        <span className="font-semibold text-lg">
+                          {lead.total}
+                        </span>
                       </div>
 
                       <Button

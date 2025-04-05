@@ -59,9 +59,9 @@ export function Connect() {
     <div className="h-screen pt-[100px]">
       <div className="max-w-7xl mx-auto h-full sm:px-0 px-4">
         <div className="gap-2 items-start flex flex-col h-full">
-          <h1 className="text-4xl">Your Email Senders</h1>
+          <h1 className="text-3xl font-semibold">Your Email Senders</h1>
           {loading ? (
-            <ClipLoader size={15} color="grey" />
+            <ClipLoader size={40} color="grey" className="mx-auto mt-20" />
           ) : connectors.length > 0 ? (
             <div className="mt-4 space-y-6">
               <div className="flex gap-6">
