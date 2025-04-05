@@ -12,6 +12,7 @@ import ClipLoader from "react-spinners/ClipLoader";
 export function Connect() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  console.log(error);
   const [connectors, setConnectors] = useState<any[]>([]);
 
   useEffect(() => {
