@@ -22,7 +22,7 @@ export function Workflow() {
   const [deleteLoadingId, setDeleteLoadingId] = useState<string | null>(null);
 
   const [error, setError] = useState<string | null>(null);
-  console.log(error)
+  console.log(error);
   const [workflows, setWorkflows] = useState<any[]>([]);
   const [editDialogOpen, setEditDialogOpen] = useState(false);
   const [editName, setEditName] = useState("");
@@ -131,7 +131,7 @@ export function Workflow() {
         <div className="gap-2 items-start flex flex-col h-full">
           <h1 className="text-3xl font-semibold">Your Email Workflows</h1>
           {loading ? (
-            <ClipLoader size={15} color="grey" />
+            <ClipLoader size={40} color="grey" className="mx-auto mt-20" />
           ) : workflows.length > 0 ? (
             <div className="mt-4 space-y-6 w-full">
               <div className="flex flex-col gap-2 max-h-[400px] overflow-y-scroll">
