@@ -60,6 +60,7 @@ export function WorkflowProvider({
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  console.log(error)
 
   useEffect(() => {
     const fetchInitialWorkflow = async () => {

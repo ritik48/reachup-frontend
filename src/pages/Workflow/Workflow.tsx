@@ -22,6 +22,7 @@ export function Workflow() {
   const [deleteLoadingId, setDeleteLoadingId] = useState<string | null>(null);
 
   const [error, setError] = useState<string | null>(null);
+  console.log(error)
   const [workflows, setWorkflows] = useState<any[]>([]);
   const [editDialogOpen, setEditDialogOpen] = useState(false);
   const [editName, setEditName] = useState("");

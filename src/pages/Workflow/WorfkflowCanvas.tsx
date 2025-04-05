@@ -8,7 +8,6 @@ import ReactFlow, {
   Controls,
   ReactFlowProvider,
   type NodeTypes,
-  Panel,
   useReactFlow,
 } from "reactflow";
 import "reactflow/dist/style.css";
