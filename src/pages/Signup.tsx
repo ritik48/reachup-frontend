@@ -13,6 +13,7 @@ import {
 import { Label } from "@/components/ui/label";
 import { Eye, EyeOff } from "lucide-react";
 import useUser from "@/contexts/UserContext";
+import ClipLoader from "react-spinners/ClipLoader";
 
 type FormType = {
   name: string;
@@ -26,7 +27,7 @@ export const SignUpPage = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm<FormType>();
 
   const onSubmit = async (data: FormType) => {
@@ -118,9 +119,11 @@ export const SignUpPage = () => {
           <Button
             type="submit"
             className="w-full cursor-pointer"
+            disabled={isSubmitting}
             onClick={handleSubmit(onSubmit)}
           >
-            Create Account
+            {isSubmitting && <ClipLoader size={16} color="grey" />} Create
+            Account
           </Button>
           <p className="text-sm text-center">
             Already have an account?{" "}
