@@ -13,6 +13,7 @@ import {
 import { Label } from "@/components/ui/label";
 import { Eye, EyeOff } from "lucide-react";
 import useUser from "@/contexts/UserContext";
+import ClipLoader from "react-spinners/ClipLoader";
 
 type FormType = {
   email: string;
@@ -24,12 +25,10 @@ const LoginPage = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm<FormType>();
 
-  const { login, user } = useUser();
-
-  console.log({user})
+  const { login } = useUser();
 
   const onSubmit = async (data: FormType) => {
     await login(data.email, data.password);
@@ -42,8 +41,8 @@ const LoginPage = () => {
           <CardTitle className="text-2xl font-bold text-center">
             Log In
           </CardTitle>
-          <CardDescription className="text-center">
-            Enter your credentials to access your account
+          <CardDescription className="text-center font-medium">
+            Test Credential: <br></br>(email: raj@gmail.com | password: 123)
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -101,8 +100,9 @@ const LoginPage = () => {
             type="submit"
             className="w-full cursor-pointer"
             onClick={handleSubmit(onSubmit)}
+            disabled={isSubmitting}
           >
-            Log In
+            {isSubmitting && <ClipLoader size={16} color="grey" />} Log In
           </Button>
           <p className="text-sm text-center">
             Don't have an account?{" "}
